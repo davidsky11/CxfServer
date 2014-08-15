@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/mvc
+    	   http://www.springframework.org/schema/mvc/spring-mvc.xsd
+           http://cxf.apache.org/jaxws
+           http://cxf.apache.org/schemas/jaxws.xsd
+           http://cxf.apache.org/jaxrs
+           http://cxf.apache.org/schemas/jaxrs.xsd">
+	
+	<bean id="SayHello" class="com.kn.service.impl.HelloServiceImpl" />
+
+	<!-- 发布Service -->
+	<jaxws:endpoint id="helloService" implementor="#SayHello"
+		address="/HelloService" publish="true" />
+
+	<jaxws:endpoint id="userService" implementor="com.kn.service.impl.UserServiceImpl"
+		address="/UserService" publish="true" />
+	
+	<jaxws:endpoint id="commentsService" implementor="com.kn.service.impl.CommentsServiceImpl"
+	    address="/CommentsService" publish="true" />
+	
+	<jaxws:endpoint id="customerService" implementor="com.kn.service.impl.CustomerServiceImpl"
+	    address="/CustomerService" publish="true" />
+
+	<jaxws:endpoint id="bigDataService" implementor="com.kn.service.impl.BigDataServiceImpl"
+	    address="/BigDataService" publish="true" />
+	
+	<jaxws:endpoint id="fileTransferService" implementor="com.kn.service.impl.FileTransferServiceImpl"
+	    address="/FileTransferService" publish="true" />
+	
+	<!-- Client配置 -->
+	<jaxws:client id="userClient" serviceClass="com.kn.service.UserService"
+		address="http://localhost:8080/CxfServer/services/UserService" />
+	
+	<jaxws:client id="helloClient" serviceClass="com.kn.service.HelloService"
+	    address="http://localhost:8080/CxfServer/services/HelloService" />
+	
+	<jaxws:client id="commentsClient" serviceClass="com.kn.service.CommentsService"
+	    address="http://localhost:8080/CxfServer/services/CommentsService" />
+
+	<!-- 另一种Client配置 -->
+	<!-- <bean id="helloClient" class="com.kn.test.Demo" factory-bean="helloClientFactory"
+		factory-method="create" />
+
+	<bean id="helloClientFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+		<property name="serviceClass" value="com.kn.service.HelloService" />
+		<property name="address" value="http://localhost:8080/CxfServer/HelloService" />
+	</bean> -->
+
+	<jaxws:client id="customerClient" serviceClass="com.kn.service.CustomerService"
+		address="http://localhost:8080/CxfServer/services/CustomerService" />
+	
+</beans>
